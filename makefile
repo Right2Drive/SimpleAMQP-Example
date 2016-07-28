@@ -1,14 +1,20 @@
 CC=g++
-CFLAGS=-c -Wall -I/usr/local/include
+CFLAGS=-c -Wall -Werror -I/usr/local/include
 LDFLAGS=-Lusr/local/lib/ -lSimpleAmqpClient -lrabbitmq
 
-all: sender.o receiver.o
+all: sender receiver
+
+sender: sender.o
+	$(CC) sender.o -o sender.out
+
+receiver: receiver.o
+	$(CC) receiver.o -o receiver.out
 
 sender.o: sender.cpp
-	$(CC) $(CFLAGS) $(LDFLAGS) sender.cpp -o sender.o
+	$(CC) $(CFLAGS) $(LDFLAGS) sender.cpp
 
 receiver.o: receiver.cpp
-	$(CC) $(CFLAGS) $(LDFLAGS) receiver.cpp -o receiver.o
+	$(CC) $(CFLAGS) $(LDFLAGS) receiver.cpp
 
 clean:
-	rm *o
+	rm *o *out
