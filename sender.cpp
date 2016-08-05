@@ -17,14 +17,16 @@ int main()  {
   channel->BindQueue(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY);  // This needs to be changed
 
   AmqpClient::BasicMessage::ptr_t message;
+  string msg_body;
 
   do {
     cout << "What message would you like to send to your friend?\n";
-    cin >> message;
+    cin >> msg_body;
+    message->Body(msg_body);
 
     channel->BasicPublish(EXCHANGE_NAME, ROUTING_KEY, message);
 
-  } while (message.compare(QUIT));
+  } while (msg_body.compare(QUIT));
 
   return 0;
 }
