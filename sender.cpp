@@ -21,7 +21,7 @@ int main()  {
         else
                 channel = AmqpClient::Channel::Create();
 
-        channel->DeclareQueue(QUEUE_NAME);
+        channel->DeclareQueue(QUEUE_NAME, false, false, false, false);
         channel->BindQueue(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY); // This needs to be changed
 
         AmqpClient::BasicMessage::ptr_t message = AmqpClient::BasicMessage::Create();
