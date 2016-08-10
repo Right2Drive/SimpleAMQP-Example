@@ -13,13 +13,7 @@ using namespace std;
 int main()  {
 
         // Perform setup
-        char *szBroker = getenv("AMQP_BROKER");
-        AmqpClient::Channel::ptr_t channel;
-
-        if (szBroker != NULL)
-                channel = AmqpClient::Channel::Create(szBroker);
-        else
-                channel = AmqpClient::Channel::Create();
+        AmqpClient::Channel::ptr_t channel = AmqpClient::Channel::Create("localhost");
 
         channel->DeclareQueue(QUEUE_NAME, false, false, false, false);
         channel->BindQueue(QUEUE_NAME, EXCHANGE_NAME, ROUTING_KEY); // This needs to be changed
